@@ -4,22 +4,30 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-		<title>Kai test</title>
+		<title>Kent練字</title>
 		<meta name="description" content="some text description" />
 		<link href="static/css/main.css" rel="stylesheet">
 		<link href="static/css/justifiedGallery.min.css" rel="stylesheet">
 		<link href="lightgallery/css/lightgallery.css" rel="stylesheet">
 	</head>
 	<body class="demos">
-
 		<nav class="navbar navbar-default" data-spy="affix" data-offset-top="197"  role="navigation">
 			<div class="container-fluid">
 				<div class="navbar-header">
-					<a class="navbar-brand">Kent 习字</a>
+						<img src="static/img/logo1.png">
+						<img src="static/img/logo2.png">
+					<a class="navbar-brand">
+						Kent
+					</a>
 				</div>
 				<div id="navbar" class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
 						#NAV_ITEMS#
+						<li><a class="navbar-brand" style="color:gold" href="https://github.com/sk1418/gallery">生成器@GitHub
+								<span class="border"></span>
+							</a>
+						</li>
+
 					</ul>
 				</div>
 			</div>
@@ -41,11 +49,13 @@
 		<script type="text/javascript" src="lightgallery/js/lg-autoplay.js"></script>
 		<script type="text/javascript" src="lightgallery/js/lg-hash.js"></script>
 		<script src="static/js/jquery.mousewheel.min.js"></script>
-		<!--<script src="static/js/main.js"></script>-->
-		<!--<script>$(function(){-->
-<!--$('#foo').load('category1.html');-->
-	<!--});-->
-	<!--</script>-->
+
+		<ul class="navbar-default" style="color:#e0e0e0">
+			<li>相册生成脚本 <a style="color:gold" href="https://github.com/sk1418/gallery">build.py</a>. </li>
+			<li>样式以及js库均"盗"自<a style="color:gold" href="http://sachinchoolur.github.io/lightGallery/">lightGallery</a>. </li>
+			<li>感谢<a style="color:gold" href="http://www.vim.org">Vim</a> ^_^ </li>
+		</ul>
+
 	</body>
 	<script type="text/javascript">
 

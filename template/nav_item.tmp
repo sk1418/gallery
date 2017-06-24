@@ -1,5 +1,5 @@
 <li class="#ACTIVE#">
-	<a href="#LINK#">#ITEM#
+	<a class="navbar-brand" href="#LINK#">#ITEM#
 		<span class="border"></span>
 	</a>
 </li> 
