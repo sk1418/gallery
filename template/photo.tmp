@@ -1,0 +1,6 @@
+                        <a data-pinterest-text="Pin it" data-tweet-text="share it on twitter" class="" href="#ORIGINAL#" data-sub-html="#DESC#">
+                            <img class="img-responsive" src="#THUMBNAIL#">
+                            <div class="demo-gallery-poster">
+                                <img src="static/img/zoom.png">
+                            </div>
+                        </a>

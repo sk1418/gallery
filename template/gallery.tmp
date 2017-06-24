@@ -1,0 +1,11 @@
+            <div class="container-fluid">
+                <div>
+                    <h1 class="page-header mrb15">#ALBUM#</h1>
+                    <p>#DESC#</p>
+                </div>
+                <div class="demo-gallery mrb50">
+                    <div id="aniimated-thumbnials" class="list-unstyled">
+					#PHOTOLIST#
+                    </div>
+					</div>
+            </div>
