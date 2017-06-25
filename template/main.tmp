@@ -23,7 +23,7 @@
 				<div id="navbar" class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
 						#NAV_ITEMS#
-						<li><a class="navbar-brand" style="color:gold" href="https://github.com/sk1418/gallery">生成器@GitHub
+						<li><a target="_blank" class="navbar-brand" style="color:gold" href="https://github.com/sk1418/gallery">生成器@GitHub
 								<span class="border"></span>
 							</a>
 						</li>
