@@ -62,7 +62,7 @@ def create_thumbnail(image_file):
 
 def get_date_taken(image_file):
     try:
-        return Image.open(image_file)._getexif()[36867]
+        return datetime.strptime(Image.open(image_file)._getexif()[36867], '%Y:%m:%d %H:%M:%S') 
     except: 
         return datetime.fromtimestamp(path.getmtime(image_file))
 
@@ -81,7 +81,7 @@ def process_image_dir(image_dir, incremental = False):
     if not incremental and path.isdir(thumnail_dir): #re-create all thumbnails
         shutil.rmtree(thumnail_dir)
     images = glob(image_dir + "*.jpg")
-    images.sort(key=lambda x: -1*path.getctime(x), reverse=True)
+    images.sort(key=lambda x: get_date_taken(x), reverse=True)
     for infile in images: 
         thumbnail_file = path.join(image_dir, THUMBNAIL_DIR_NAME, path.basename(infile))
         if incremental and path.isfile(thumbnail_file):
@@ -90,7 +90,7 @@ def process_image_dir(image_dir, incremental = False):
         #handle html
         html = TMP_IMAGE.replace(ph_image_thumbnail, thumbnail_file)
         html = html.replace(ph_image_original, infile)
-        html = html.replace(ph_image_desc, "created on:%s" % get_date_taken(infile))
+        html = html.replace(ph_image_desc, "Created on:%s" % get_date_taken(infile))
         image_htmls.append(html)
 
     if incremental:
