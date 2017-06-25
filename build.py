@@ -6,7 +6,7 @@ from glob import glob
 from time import gmtime, strftime
 from datetime import datetime
 
-THUMBNAIL_SIZE = (150,150)
+THUMBNAIL_SIZE = 150,150
 IMAGE_STORE = 'store'
 THUMBNAIL_DIR_NAME = "thumbnail"
 tmp_dir = "template"
