@@ -107,7 +107,7 @@ def create_gallery_html(image_dir, incremental = False):
     image_htmls = process_image_dir(image_dir, incremental)
     gallery_html = TMP_GALLERY.replace(ph_gallery_desc, "Last update: %s" % strftime("%Y-%m-%d %H:%M:%S", gmtime()))
     gallery_html = gallery_html.replace(ph_gallery_photos, "\n".join(image_htmls))
-    gallery_html = gallery_html.replace(ph_gallery_album, gallery_name)
+    gallery_html = gallery_html.replace(ph_gallery_album, "%s (%d)" % (gallery_name, len(image_htmls)))
     return gallery_html
 
 def get_main_html_dict():
