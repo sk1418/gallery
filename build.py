@@ -80,7 +80,9 @@ def process_image_dir(image_dir, incremental = False):
 
     if not incremental and path.isdir(thumnail_dir): #re-create all thumbnails
         shutil.rmtree(thumnail_dir)
-    for infile in glob(image_dir + "*.jpg"): 
+    images = glob(image_dir + "*.jpg")
+    images.sort(key=lambda x: -1*path.getctime(x), reverse=True)
+    for infile in images: 
         thumbnail_file = path.join(image_dir, THUMBNAIL_DIR_NAME, path.basename(infile))
         if incremental and path.isfile(thumbnail_file):
             continue  #if incremental and the thumbnail exists, ignore creation
