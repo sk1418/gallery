@@ -14,15 +14,18 @@ Example: https://sk1418.github.io/gallery
 
 - auto generating thumbnails
 - auto create gallery site
-- simple: copy images files to sub-directory under `store`, done.
-- incremental generation
+- simple: single script, copy images files to sub-directory under `store`, done.
+- optional incremental generation
 
 ## Usage:
 
-After all images have been copied in place, run:
+- prepare template (under `template`)
+- copy images as sub-directories under `store`
 
 	./build.py
 
 Done.
 
+## Todo:
 
+- [ ] cli option parser
