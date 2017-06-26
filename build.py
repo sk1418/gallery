@@ -92,9 +92,8 @@ def process_image_dir(image_dir, incremental = False):
     images.sort(key=lambda x: get_date_taken(x), reverse=True)
     for infile in images: 
         thumbnail_file = path.join(image_dir, THUMBNAIL_DIR_NAME, path.basename(infile))
-        if incremental and path.isfile(thumbnail_file):
-            continue  #if incremental and the thumbnail exists, ignore creation
-        create_thumbnail(infile)
+        if not incremental or (incremental and not path.isfile(thumbnail_file)):
+            create_thumbnail(infile)
         #handle html
         html = TMP_IMAGE.replace(ph_image_thumbnail, thumbnail_file)
         html = html.replace(ph_image_original, infile)
