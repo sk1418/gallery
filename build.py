@@ -50,6 +50,14 @@ def load_templates():
     with open(tmp_nav_file, 'r') as tmp_file:
         TMP_NAV=tmp_file.read()
 
+    log("All templates have been loaded" )
+
+def remove_all_htmls():
+    for html in glob("*.html"):
+        os.remove(html)
+        log("%s has been removed." % html)
+
+
 def create_thumbnail(image_file):
     img = Image.open(image_file)
     img.thumbnail(THUMBNAIL_SIZE, Image.ANTIALIAS)
@@ -67,15 +75,15 @@ def get_date_taken(image_file):
         return datetime.fromtimestamp(path.getmtime(image_file))
 
 def remove_orphaned_thumnails(image_dir):
-    for thumnail in glob(path.join(image_dir + THUMBNAIL_DIR_NAME)):
+    for thumnail in glob(path.join(image_dir , THUMBNAIL_DIR_NAME +"/*")):
         filename = path.basename(thumnail)
-        if not os.isfile(path.join(image_dir, filename)):
-            print ("removing orphaned thumnail: %s" % thumnail)
+        if not path.isfile(path.join(image_dir, filename)):
+            log("    > removing orphaned thumnail: %s" % thumnail)
             os.remove(thumnail)
 
 def process_image_dir(image_dir, incremental = False):
     image_htmls = []
-    print ("creating thumnails for " + image_dir)
+    log("    creating thumnails for %s %s" % (image_dir, "*incrementally*" if incremental else "" ))
     thumnail_dir = path.join(image_dir, THUMBNAIL_DIR_NAME)
 
     if not incremental and path.isdir(thumnail_dir): #re-create all thumbnails
@@ -96,39 +104,42 @@ def process_image_dir(image_dir, incremental = False):
     if incremental:
         remove_orphaned_thumnails(image_dir)
 
-    print ("%d images processed" %len(image_htmls))
+    log ("    > %d images have been processed" %len(image_htmls))
     return image_htmls
 
 
 def create_gallery_html(image_dir, incremental = False):
-    print ("creating gallery for " + image_dir)
     #gallery/album name
     gallery_name = image_dir.split('/')[-2]
     image_htmls = process_image_dir(image_dir, incremental)
     gallery_html = TMP_GALLERY.replace(ph_gallery_desc, "Last update: %s" % strftime("%Y-%m-%d %H:%M:%S", gmtime()))
     gallery_html = gallery_html.replace(ph_gallery_photos, "\n".join(image_htmls))
     gallery_html = gallery_html.replace(ph_gallery_album, "%s (%d)" % (gallery_name, len(image_htmls)))
+    log ('    > Gallery Html codes for "%s" was generated' % gallery_name)
+
     return gallery_html
 
-def get_main_html_dict():
+def get_main_html_dict(incremental = False):
     all_htmls = {}
     for image_dir in glob(IMAGE_STORE + "/*/"):
-        gallery_html = create_gallery_html(image_dir)
+        log ("Creating gallery for " + image_dir)
+        gallery_html = create_gallery_html(image_dir, incremental)
         #images
         html = TMP_MAIN.replace(ph_main_gallery, gallery_html)
 
         #gallery/album name
         gallery_name = image_dir.split('/')[-2]
-
-
         all_htmls[gallery_name] = html
     return all_htmls
 
-def create_htmls():
-    all_htmls = get_main_html_dict()
+def create_htmls(incremental = False):
+    all_htmls = get_main_html_dict(incremental)
     #apply nav_items, and create htmls
     index_required = True
     link={}
+
+    log ("All html codes were generated, now apply for the navigation bar and write html to file")
+    log()
     for current in all_htmls.keys():
         items = []
         if index_required:
@@ -143,17 +154,40 @@ def create_htmls():
             item_html = item_html.replace(ph_nav_link, link[item] if item in link else "%s.html" % item)
             items.append(item_html)
         html = all_htmls[current].replace(ph_main_nav,  '\n'.join(items))
-        print ("creating %s " % html_file)
+        log ("Writing html file %s " % html_file)
         with open( html_file, 'w') as file:
             file.write(html)
 
-def remove_all_htmls():
-    print ("removing all htmls")
-    for html in glob("*.html"):
-        os.remove(html)
+
+def log(text="="*77):
+    print ("[INFO] %s" % text)
+
+def usage():
+    usage = """
+    # normal usage:
+
+    build.py
+
+    # incremental generating (only generating new thumnails for new images)
+
+    build.py -i
+    """
+    print (usage)
 
 if __name__ == '__main__':
-    load_templates()
-    remove_all_htmls()
-    create_htmls()
+    incr = False
+    if sys.argv.__len__() >2 or (sys.argv.__len__() ==2 and sys.argv[1]!="-i"):
+        usage()
+        sys.exit(1)
+    else: 
+        incr = sys.argv.__len__() == 2
+        log("Start building gallery site %s..." % "*incrementally*" if incr else "")
+        log()
+        load_templates()
+        log()
+        remove_all_htmls()
+        log()
+        create_htmls(incr)
+        log()
+        log("Done!")
 

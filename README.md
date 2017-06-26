@@ -24,8 +24,12 @@ Example: https://sk1418.github.io/gallery
 
 	./build.py
 
+or for incremental thumbnails generation:
+
+	./build.py -i  
+
 Done.
 
 ## Todo:
 
-- [ ] cli option parser
+- [x] cli option parser
