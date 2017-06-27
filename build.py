@@ -97,10 +97,12 @@ def process_image_dir(image_dir, incremental = False):
         shutil.rmtree(thumnail_dir)
     images = glob(image_dir + "*.jpg")
     images.sort(key=lambda x: get_date_taken(x), reverse=True)
+    thumnail_cnt = 0
     for infile in images: 
         thumbnail_file = path.join(image_dir, THUMBNAIL_DIR_NAME, path.basename(infile))
         if not incremental or (incremental and not path.isfile(thumbnail_file)):
             create_thumbnail(infile)
+            thumnail_cnt += 1
         #handle html
         html = TMP_IMAGE.replace(ph_image_thumbnail, thumbnail_file)
         html = html.replace(ph_image_original, infile)
@@ -110,7 +112,8 @@ def process_image_dir(image_dir, incremental = False):
     if incremental:
         remove_orphaned_thumnails(image_dir)
 
-    log ("    > %d images have been processed" %len(image_htmls))
+    log ("    > %d thumnails have been created" % thumnail_cnt)
+    log ("    > %d images have been processed" % len(image_htmls))
     return image_htmls
 
 
