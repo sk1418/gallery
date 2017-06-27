@@ -1,5 +1,5 @@
 #!/bin/python
-import  os, sys, glob, shutil
+import  os, sys, glob, shutil, re
 from PIL import Image
 from os import path
 from glob import glob
@@ -36,6 +36,8 @@ ph_nav_active="#ACTIVE#"
 ph_nav_item="#ITEM#"
 ph_nav_link="#LINK#"
 
+TIME_PATTERN=r'\d\d-\d\d-\d\d \d\d \d\d \d\d'
+
 def load_templates():
     global TMP_IMAGE, TMP_MAIN, TMP_GALLERY, TMP_NAV
     with open(tmp_image_file, 'r') as tmp_file:
@@ -70,9 +72,14 @@ def create_thumbnail(image_file):
 
 def get_date_taken(image_file):
     try:
-        return datetime.strptime(Image.open(image_file)._getexif()[36867], '%Y:%m:%d %H:%M:%S') 
+        return datetime.strptime(Image.open(image_file)._getexif()[36867], '%Y-%m-%d %H:%M:%S') 
     except: 
-        return datetime.fromtimestamp(path.getmtime(image_file))
+        #check filename pattern first
+        tmp = re.search(TIME_PATTERN, image_file)
+        if tmp: 
+            return datetime.strptime(tmp.group(0), '%d-%m-%y %H %M %S')
+        else:
+            return datetime.fromtimestamp(path.getmtime(image_file))
 
 def remove_orphaned_thumnails(image_dir):
     for thumnail in glob(path.join(image_dir , THUMBNAIL_DIR_NAME +"/*")):
