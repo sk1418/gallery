@@ -19,4 +19,5 @@ fi
 echo "============================================================================="
 echo "Start creating gallery website..."
 echo "============================================================================="
-build.py -i
+python build.py -i
+git add . && git commit -am'add images' && git push
