@@ -6,10 +6,11 @@ if [[ $1 == "-d" ]]; then
 fi
 
 SRC="$HOME/Dropbox/书法/mine/"
-rsync $DRY --ignore-existing --delete --exclude="thumbnail/" -av "${SRC}精临练笔" "store/"
-rsync $DRY --ignore-existing --delete --exclude="thumbnail/" -av "${SRC}古诗文" "store/"
-rsync $DRY --ignore-existing --delete --exclude="thumbnail/" -av "${SRC}闲笔" "store/"
-rsync $DRY --ignore-existing --delete --exclude="thumbnail/" -av "${SRC}歌词" "store/"
+rsync $DRY --ignore-existing --delete --exclude="thumbnail/" -av "${SRC}"* "store/"
+#rsync $DRY --ignore-existing --delete --exclude="thumbnail/" -av "${SRC}精临练笔" "store/"
+#rsync $DRY --ignore-existing --delete --exclude="thumbnail/" -av "${SRC}古诗文" "store/"
+#rsync $DRY --ignore-existing --delete --exclude="thumbnail/" -av "${SRC}闲笔" "store/"
+#rsync $DRY --ignore-existing --delete --exclude="thumbnail/" -av "${SRC}歌词" "store/"
 
 if [[ $1 == "-d" ]];then
 echo "============================================================================="
