@@ -130,7 +130,7 @@ def create_gallery_html(image_dir, incremental = False):
 
 def get_main_html_dict(incremental = False):
     all_htmls = {}
-    for image_dir in sorted(glob(IMAGE_STORE + "/*/")):
+    for image_dir in sorted(glob(IMAGE_STORE + "/*/"), reverse=True):
         log ("Creating gallery for " + image_dir)
         gallery_html = create_gallery_html(image_dir, incremental)
         #images
