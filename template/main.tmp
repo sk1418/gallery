@@ -9,6 +9,7 @@
 		<link href="static/css/main.css" rel="stylesheet">
 		<link href="static/css/justifiedGallery.min.css" rel="stylesheet">
 		<link href="lightgallery/css/lightgallery.css" rel="stylesheet">
+		<link rel="icon" href="favicon.ico" />
 	</head>
 	<body class="demos">
 
