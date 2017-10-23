@@ -37,6 +37,7 @@ ph_nav_item="#ITEM#"
 ph_nav_link="#LINK#"
 
 TIME_PATTERN=r'\d\d-\d\d-\d\d \d\d \d\d \d\d'
+TIME_PATTERN2=r'\d\d.\d\d.\d\d, \d\d \d\d \d\d'
 
 def load_templates():
     global TMP_IMAGE, TMP_MAIN, TMP_GALLERY, TMP_NAV
@@ -76,8 +77,12 @@ def get_date_taken(image_file):
     except: 
         #check filename pattern first
         tmp = re.search(TIME_PATTERN, image_file)
+        tmp2 = re.search(TIME_PATTERN2, image_file)
         if tmp: 
             return datetime.strptime(tmp.group(0), '%d-%m-%y %H %M %S')
+        elif tmp2:
+            print(tmp2)
+            return datetime.strptime(tmp2.group(0), '%d.%m.%y, %H %M %S')
         else:
             return datetime.fromtimestamp(path.getmtime(image_file))
 
