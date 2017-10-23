@@ -72,7 +72,7 @@ def create_thumbnail(image_file):
 
 def get_date_taken(image_file):
     try:
-        return datetime.strptime(Image.open(image_file)._getexif()[36867], '%Y-%m-%d %H:%M:%S') 
+        return datetime.strptime(Image.open(image_file)._getexif()[36867], '%Y:%m:%d %H:%M:%S') 
     except: 
         #check filename pattern first
         tmp = re.search(TIME_PATTERN, image_file)
