@@ -81,7 +81,6 @@ def get_date_taken(image_file):
         if tmp: 
             return datetime.strptime(tmp.group(0), '%d-%m-%y %H %M %S')
         elif tmp2:
-            print(tmp2)
             return datetime.strptime(tmp2.group(0), '%d.%m.%y, %H %M %S')
         else:
             return datetime.fromtimestamp(path.getmtime(image_file))
