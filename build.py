@@ -119,7 +119,7 @@ def process_image_dir(image_dir, incremental = False):
 
 def create_gallery_html(image_dir, incremental = False):
     #gallery/album name
-    gallery_name = image_dir.split('/')[-2]
+    gallery_name = image_dir.split(os.path.normcase('/'))[-2]
     image_htmls = process_image_dir(image_dir, incremental)
     gallery_html = TMP_GALLERY.replace(ph_gallery_desc, "Last update: %s" % strftime("%Y-%m-%d %H:%M:%S", gmtime()))
     gallery_html = gallery_html.replace(ph_gallery_photos, "\n".join(image_htmls))
@@ -137,7 +137,7 @@ def get_main_html_dict(incremental = False):
         html = TMP_MAIN.replace(ph_main_gallery, gallery_html)
 
         #gallery/album name
-        gallery_name = image_dir.split('/')[-2]
+        gallery_name = image_dir.split(os.path.normcase('/'))[-2]
         all_htmls[gallery_name] = html
     return all_htmls
 
